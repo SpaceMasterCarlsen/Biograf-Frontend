@@ -1,0 +1,85 @@
+/* ================= Header Styling ================= */
+
+.navbar {
+    position: relative; /* This will allow absolute positioning of the links */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222; /* Same background as the footer */
+    padding: 15px 30px; /* Adjusted padding */
+}
+
+/* Logo */
+.logo img {
+    height: 15%; /* Adjust size */
+    width: 15%;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    position: absolute; /* To position links using left/right */
+    top: 50%; /* Vertically center the links */
+    transform: translateY(-50%); /* Adjust vertical centering */
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ffcc00; /* Highlight color */
+}
+
+/* Program Links (Middle position) */
+.nav-links.program {
+    left: 50%; /* Position "Program" around the middle */
+    transform: translateX(-50%) translateY(-50%); /* Adjust centering */
+}
+
+/* Forside Links (Right side position) */
+.nav-links.forside {
+    right: 30px; /* Position "Forside" towards the right */
+    transform: translateY(-50%); /* Ensure vertical centering */
+}
+
+/* ================= Body Styling ================= */
+.body-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    color: white; /* Adjust text color if needed */
+    background-color: #333; /* Adjust background color if needed */
+    text-align: center;
+}
+
+/* ================= Footer Styling ================= */
+.footer {
+    background-color: #222; /* Same background as the header */
+    color: white; /* White text */
+    padding: 20px;
+    margin-top: 20px; /* Adds space between body content and footer */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* Distributes items evenly */
+    align-items: center;
+    max-width: 1000px; /* Adjust width as needed */
+    margin: 0 auto; /* Centers the footer */
+    text-align: center; /* Ensures text stays aligned */
+}
+
+.footer-container p {
+    margin: 0;
+    flex: 1; /* Ensures equal spacing */
+}
