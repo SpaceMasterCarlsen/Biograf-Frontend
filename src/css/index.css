@@ -53,6 +53,39 @@
 }
 
 /* ================= Body Styling ================= */
+.body-content {
+    display: flex; /* Align image and text side by side */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: white; /* Text color to ensure visibility */
+    padding: 20px;
+    text-align: right; /* Right-align the text */
+    height: 100vh; /* Make sure it takes the full height of the viewport */
+}
+
+/* Image styling */
+.body-content img {
+    max-width: 50%; /* Adjust image size */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Optional rounded corners */
+    margin-left: 20px; /* Space between image and text */
+}
+
+/* Text content styling */
+.text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the text */
+    max-width: 50%; /* Adjust the width of the text to fit alongside the image */
+}
+
+/* Text styling */
+.body-content h1, .body-content p {
+    font-size: 1.5rem; /* Adjust text size */
+    line-height: 1.5;
+}
+
+
 
 
 /* ================= Footer Styling ================= */
