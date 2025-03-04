@@ -3,7 +3,7 @@
 .navbar {
     position: relative; /* This will allow absolute positioning of the links */
     display: flex;
-    /*justify-content: space-between;*/
+    justify-content: space-between;
     align-items: center;
     background-color: #222; /* Same background as the footer */
     padding: 15px 30px; /* Adjusted padding */
@@ -13,7 +13,7 @@
 .logo img {
     height: 10%; /* Adjust size */
     width: 10%;
-    border-radius:  25px;
+    border-radius: 15px;
 }
 
 /* Navigation Links */
@@ -37,19 +37,25 @@
     transition: 0.3s;
 }
 
+hr {
+    height: 8px;
+    background-color: darkred;
+    border-color: darkred;
+}
+
 .nav-links a:hover {
-    color: #ffcc00; /* Highlight color */
+    color: goldenrod; /* Highlight color */
 }
 
 /* Program Links (Middle position) */
 .nav-links.program {
-    left: 50%; /* Position "Program" around the middle */
+    left: 45%; /* Position "Program" around the middle */
     transform: translateX(-50%) translateY(-50%); /* Adjust centering */
 }
 
 /* Forside Links (Right side position) */
 .nav-links.forside {
-    right: 30px; /* Position "Forside" towards the right */
+    right: 150px; /* Position "Forside" towards the right */
     transform: translateY(-50%); /* Ensure vertical centering */
 }
 
@@ -62,12 +68,21 @@
     padding: 20px;
     text-align: right; /* Right-align the text */
     height: 100vh; /* Make sure it takes the full height of the viewport */
+    margin: 0;
+    background-image: url('../assets/cinema Theater Background AI upscaled.jpg');
+    background-size: cover;
+
+
 }
 
-/* Image styling */
-.body-content img {
-    max-width: 50%; /* Adjust image size */
-    height: auto; /* Maintain aspect ratio */
+
+/*Used this to get rid of the white footer and header border */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Libre Franklin', sans-serif;
+
 }
 
 /* Text content styling */
@@ -76,7 +91,10 @@
     flex-direction: column;
     justify-content: center; /* Vertically center the text */
     max-width: 50%; /* Adjust the width of the text to fit alongside the image */
+    color: goldenrod;
+    text-align: center;
 }
+
 
 /* Text styling */
 .body-content h1, .body-content p {
@@ -92,7 +110,7 @@ footer {
     background-color: #222 !important; /* Force background color */
     color: white;
     padding: 20px 30px;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     min-height: 100px; /* Ensures the footer has enough height */
 }
 
