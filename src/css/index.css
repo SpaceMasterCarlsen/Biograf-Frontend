@@ -3,7 +3,7 @@
 .navbar {
     position: relative; /* This will allow absolute positioning of the links */
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     align-items: center;
     background-color: #222; /* Same background as the footer */
     padding: 15px 30px; /* Adjusted padding */
@@ -11,8 +11,9 @@
 
 /* Logo */
 .logo img {
-    height: 15%; /* Adjust size */
-    width: 15%;
+    height: 10%; /* Adjust size */
+    width: 10%;
+    border-radius:  25px;
 }
 
 /* Navigation Links */
@@ -67,8 +68,6 @@
 .body-content img {
     max-width: 50%; /* Adjust image size */
     height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Optional rounded corners */
-    margin-left: 20px; /* Space between image and text */
 }
 
 /* Text content styling */
