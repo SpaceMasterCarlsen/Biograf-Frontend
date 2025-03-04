@@ -53,33 +53,39 @@
 }
 
 /* ================= Body Styling ================= */
-.body-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    color: white; /* Adjust text color if needed */
-    background-color: #333; /* Adjust background color if needed */
-    text-align: center;
-}
+
 
 /* ================= Footer Styling ================= */
-.footer {
-    background-color: #222; /* Same background as the header */
-    color: white; /* White text */
-    padding: 20px;
-    margin-top: 20px; /* Adds space between body content and footer */
+footer {
+    background-color: #222 !important; /* Force background color */
+    color: white;
+    padding: 20px 30px;
+    margin-top: 20px;
+    min-height: 100px; /* Ensures the footer has enough height */
 }
 
 .footer-container {
     display: flex;
-    justify-content: space-between; /* Distributes items evenly */
-    align-items: center;
-    max-width: 1000px; /* Adjust width as needed */
-    margin: 0 auto; /* Centers the footer */
-    text-align: center; /* Ensures text stays aligned */
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
 }
 
+/* Styling for Each Section */
 .footer-container p {
     margin: 0;
-    flex: 1; /* Ensures equal spacing */
+    flex: 1; /* Equal spacing for each section */
+    font-size: 14px; /* Smaller font size */
+    line-height: 1.5; /* Spacing between lines */
 }
+
+/* Ensure that the footer's sections are spaced out */
+.footer-container .adress,
+.footer-container .openhours,
+.footer-container .contact {
+    padding: 0 15px; /* Add some spacing around each section */
+}
+
