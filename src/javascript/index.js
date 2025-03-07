@@ -25,5 +25,5 @@ function navigateToIndex() {
 
 //to have API call to add data for the calender
 function navigateToProgram() {
-
+    window.location.href = "calendar.html";
 }
