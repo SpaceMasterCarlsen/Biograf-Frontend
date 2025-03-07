@@ -1,5 +1,4 @@
-console.log("er i index.js");
-
+console.log("navigation er med");
 document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll(".nav-links a");
 
