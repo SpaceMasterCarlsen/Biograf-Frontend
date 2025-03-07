@@ -1,9 +1,9 @@
 console.log("er i index.js");
 
 document.addEventListener("DOMContentLoaded", () => {
-    const indexLinks = document.querySelectorAll(".nav-links a");
+    const navLinks = document.querySelectorAll(".nav-links a");
 
-    indexLinks.forEach(link => {
+    navLinks.forEach(link => {
         link.addEventListener("click", (event) => {
             event.preventDefault();
 
