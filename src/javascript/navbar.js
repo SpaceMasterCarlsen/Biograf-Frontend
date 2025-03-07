@@ -17,13 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Function for navigating to index.html
 function navigateToIndex() {
     window.location.href = "index.html";
 }
 
 
-//to have API call to add data for the calender
 function navigateToProgram() {
     window.location.href = "calendar.html";
 }
