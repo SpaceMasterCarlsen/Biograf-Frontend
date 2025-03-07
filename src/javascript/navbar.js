@@ -1,4 +1,4 @@
-console.log("navigation er med");
+console.log("navigation index og program (kalender) er med");
 document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll(".nav-links a");
 
