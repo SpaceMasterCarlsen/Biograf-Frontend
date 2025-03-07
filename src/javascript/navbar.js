@@ -20,7 +20,6 @@ function navigateToIndex() {
     window.location.href = "index.html";
 }
 
-
 function navigateToProgram() {
     window.location.href = "calendar.html";
 }
