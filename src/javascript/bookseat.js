@@ -9,116 +9,103 @@ function getShowTimeID() {
 document.addEventListener("DOMContentLoaded", async () => {
     const seatsContainer = document.querySelector(".seats-container");
     const selectedSeats = new Set();
-   // const showTimeID = getShowTimeID(); // Get showTimeID from URL params
+    const showTimeID = 2; // Hardcoded for now, remove later
 
-    const showTimeID = 2; //this line to be removed after hardcoding is no longer needed
-
+    const seatDetails = document.getElementById("seat-details");
 
     if (showTimeID) {
-        await initSeats(showTimeID);
+        await initSeats();
     } else {
         console.error("showTimeID is missing in the URL parameters.");
     }
 
-    // Fetch and render seats based on showTimeID
+    // Initialize seat layout
     async function initSeats() {
         const seats = await getSeats(showTimeID);
-        console.log(seats);
         renderSeats(seats);
     }
 
     // Render seats in the grid
     function renderSeats(seats) {
-        seatsContainer.innerHTML = ""; // Clear any existing seats
+        seatsContainer.innerHTML = ""; // Clear existing seats
+
         seats.forEach(seat => {
             const seatElement = document.createElement("div");
             seatElement.classList.add("seat");
-            seatElement.textContent = seat.seatNameID; // Display seat name (e.g., "A0", "B0")
+            seatElement.textContent = seat.seatNameID;
 
-            // Add seat booking and details functionality
             if (seat.booked) {
                 seatElement.classList.add("booked");
-                console.log("Seat is booked:", seat.seatNameID);  // Debugging line
             } else {
                 seatElement.classList.add("available");
-                seatElement.onclick = () => toggleSelection(seatElement, seat); // Pass entire seat object
+                seatElement.onclick = () => toggleSelection(seatElement, seat);
             }
 
+            if (selectedSeats.has(seat.seatID)) {
+                seatElement.classList.add("selected"); // Keep selected seats highlighted
+            }
+
+            seatElement.dataset.seatId = seat.seatID; // Store seat ID for updates
             seatsContainer.appendChild(seatElement);
         });
     }
 
-    // Handle seat selection and display seat details
+    // Handle seat selection and display details
     function toggleSelection(seatElement, seat) {
         if (selectedSeats.has(seat.seatID)) {
             selectedSeats.delete(seat.seatID);
             seatElement.classList.remove("selected");
-            seatElement.classList.add("available");
-            cancelBooking(seat.seatID);
         } else {
             selectedSeats.add(seat.seatID);
-            seatElement.classList.remove("available");
             seatElement.classList.add("selected");
-            bookSeat(seat.seatID);
         }
 
-        // Display seat details below the grid
         displaySeatDetails(seat);
     }
 
-    // Display seat details in a small div underneath the grid
+    // Display seat details
     function displaySeatDetails(seat) {
-        const detailsDiv = document.getElementById("seat-details");
+        seatDetails.innerHTML = `
+        <p><strong>Movie:</strong> ${seat.movieName || "N/A"}</p>
+        <p><strong>Theater:</strong> ${seat.theaterName || "N/A"}</p>
+        <p><strong>Seat:</strong> ${seat.seatNameID || "N/A"}</p>
+        <p><strong>Showtime:</strong> ${seat.showTimeID || "N/A"}</p>
+        <p><strong>Date:</strong> ${seat.date || "N/A"}</p>
+        <p><strong>Time:</strong> ${seat.time || "N/A"}</p>
+        <button id="book-seat-btn">Book Seat</button>
+        <button id="cancel-seat-btn">Cancel Booking</button>
+    `;
 
-        // Set the information in the respective span elements
-        document.getElementById("movie-name").textContent = seat.movieName || "N/A";
-        document.getElementById("theater-name").textContent = seat.theaterName || "N/A";
-        document.getElementById("seat-name").textContent = seat.seatNameID || "N/A";
-        document.getElementById("showtime").textContent = showTimeID || "N/A";
-        document.getElementById("date").textContent = seat.date || "N/A";
-        document.getElementById("time").textContent = seat.time || "N/A";
+        seatDetails.style.display = "block";
 
-        // Show the details div and the correct button based on seat status
-        detailsDiv.style.display = "block";
-
-        const cancelBtn = document.getElementById("cancel-seat-btn");
-        const bookBtn = document.getElementById("book-seat-btn");
-
-        console.log("Booked status for seat:", seat.seatNameID, seat.booked);  // Debugging line
-
-        if (seat.booked) {
-            cancelBtn.style.display = "inline-block";  // Show cancel button
-            bookBtn.style.display = "none";  // Hide book button
-        } else {
-            cancelBtn.style.display = "none";  // Hide cancel button
-            bookBtn.style.display = "inline-block";  // Show book button
-        }
-
-        // Handle cancel booking button click
-        cancelBtn.onclick = async () => {
-            const cancelResult = await cancelBooking(seat.seatID);
-            if (cancelResult) {
+        document.getElementById("cancel-seat-btn").onclick = async () => {
+            const success = await cancelBooking(seat.seatID);
+            if (success) {
+                updateSeatUI(seat.seatID, false);
                 alert("Booking canceled successfully!");
-                seatElement.classList.remove("booked");
-                seatElement.classList.add("available");
-                cancelBtn.style.display = "none";
-                bookBtn.style.display = "inline-block";
             } else {
                 alert("Failed to cancel booking.");
             }
         };
-    }
 
-    // Handle booking functionality when the book seat button is clicked
-    document.getElementById("book-seat-btn").addEventListener("click", async () => {
-        const seatID = Array.from(selectedSeats).pop(); // Get the last selected seat's ID
-        if (seatID) {
-            const result = await bookSeat(seatID);
-            if (result) {
+        document.getElementById("book-seat-btn").onclick = async () => {
+            const success = await bookSeat(seat.seatID);
+            if (success) {
+                updateSeatUI(seat.seatID, true);
                 alert("Seat booked successfully!");
             } else {
                 alert("Failed to book seat.");
             }
+        };
+    }
+
+
+    // Update seat UI dynamically (no reload)
+    function updateSeatUI(seatID, isBooked) {
+        const seatElement = document.querySelector(`[data-seat-id='${seatID}']`);
+        if (seatElement) {
+            seatElement.classList.toggle("booked", isBooked);
+            seatElement.classList.toggle("available", !isBooked);
         }
-    });
+    }
 });
