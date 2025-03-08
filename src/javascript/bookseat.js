@@ -2,14 +2,27 @@ import { getSeats } from "./bookseatAPI.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const seatsContainer = document.querySelector(".seats-container");
-    const showTimeID = 2; // Change to dynamicly fetch
     const selectedSeats = new Set();
+    const showTimeID = 2; //this line to be removed after hardcoding is no longer needed
+
+
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams);
+    // const showTimeID = urlParams.get("showTimeID");
+
+    if (showTimeID) {
+        await initSeats(showTimeID);
+    } else {
+        console.error("showTimeID is missing in the URL parameters.");
+    }
 
     async function initSeats() {
         const seats = await getSeats(showTimeID);
         console.log(seats);
         renderSeats(seats);
     }
+
+
 
     function renderSeats(seats) {
         seatsContainer.innerHTML = ""; // Clear previous seats
