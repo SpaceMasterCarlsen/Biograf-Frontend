@@ -12,22 +12,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     function renderSeats(seats) {
-        seatsContainer.innerHTML = "";
+        seatsContainer.innerHTML = ""; // Clear previous seats
         seats.forEach(seat => {
             const seatElement = document.createElement("div");
             seatElement.classList.add("seat");
-            seatElement.textContent = seat.seatNumber;
+            seatElement.textContent = seat.seatNameID; // Display seat name (e.g., "A0", "B0")
 
             if (seat.booked) {
                 seatElement.classList.add("booked");
             } else {
                 seatElement.classList.add("available");
-                seatElement.onclick = () => toggleSelection(seatElement, seat.seatNumber);
+                seatElement.onclick = () => toggleSelection(seatElement, seat.seatNameID);
             }
 
             seatsContainer.appendChild(seatElement);
         });
     }
+
 
     function toggleSelection(seatElement, seatNumber) {
         if (selectedSeats.has(seatNumber)) {
