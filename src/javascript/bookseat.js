@@ -72,8 +72,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p><strong>Visning:</strong> ${seat.showTimeID || "N/A"}</p>
         <p><strong>Dato:</strong> ${seat.date || "N/A"}</p>
         <p><strong>Klokken:</strong> ${seat.time || "N/A"}</p>
-        <button id="book-seat-btn">Book Seat</button>
-        <button id="cancel-seat-btn">Cancel Booking</button>
+        <button id="book-seat-btn">Book Sæde</button>
+        <button id="cancel-seat-btn">Annuller Booking</button>
     `;
 
         seatDetails.style.display = "block";
