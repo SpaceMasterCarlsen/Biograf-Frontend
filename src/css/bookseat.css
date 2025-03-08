@@ -1,0 +1,145 @@
+/* ================= Header Styling ================= */
+
+.navbar {
+    position: relative; /* This will allow absolute positioning of the links */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222; /* Same background as the footer */
+    padding: 15px 30px; /* Adjusted padding */
+}
+
+/* Logo */
+.logo img {
+    height: 10%; /* Adjust size */
+    width: 10%;
+    border-radius: 15px;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    position: absolute; /* To position links using left/right */
+    top: 50%; /* Vertically center the links */
+    transform: translateY(-50%); /* Adjust vertical centering */
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+hr {
+    height: 8px;
+    background-color: darkred;
+    border-color: darkred;
+}
+
+.nav-links a:hover {
+    color: goldenrod; /* Highlight color */
+}
+
+/* Program Links (Middle position) */
+.nav-links.program {
+    left: 45%; /* Position "Program" around the middle */
+    transform: translateX(-50%) translateY(-50%); /* Adjust centering */
+}
+
+/* Forside Links (Right side position) */
+.nav-links.forside {
+    right: 150px; /* Position "Forside" towards the right */
+    transform: translateY(-50%); /* Ensure vertical centering */
+}
+
+/* ================= Body Styling ================= */
+
+.h1seats {
+    text-align: center;
+}
+
+.seats-wrapper {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: calc(100vh - 200px); /* Adjust height to fit between header and footer */
+    padding: 20px;
+}
+
+.seats-container {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    gap: 5px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.available {
+    background-color: green;
+    color: white;
+}
+
+.booked {
+    background-color: red;
+    color: white;
+}
+
+.selected {
+    background-color: blue;
+}
+
+
+/* ================= Footer Styling ================= */
+footer {
+    background-color: #222 !important; /* Force background color */
+    color: white;
+    padding: 20px 30px;
+    /*margin-top: 20px;*/
+    min-height: 100px; /* Ensures the footer has enough height */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* Styling for Each Section */
+.footer-container p {
+    margin: 0;
+    flex: 1; /* Equal spacing for each section */
+    font-size: 14px; /* Smaller font size */
+    line-height: 1.5; /* Spacing between lines */
+}
+
+/* Ensure that the footer's sections are spaced out */
+.footer-container .adress,
+.footer-container .openhours,
+.footer-container .contact {
+    padding: 0 15px; /* Add some spacing around each section */
+}
+
