@@ -66,12 +66,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Display seat details
     function displaySeatDetails(seat) {
         seatDetails.innerHTML = `
-        <p><strong>Movie:</strong> ${seat.movieName || "N/A"}</p>
+        <p><strong>Film:</strong> ${seat.movieName || "N/A"}</p>
         <p><strong>Theater:</strong> ${seat.theaterName || "N/A"}</p>
-        <p><strong>Seat:</strong> ${seat.seatNameID || "N/A"}</p>
-        <p><strong>Showtime:</strong> ${seat.showTimeID || "N/A"}</p>
-        <p><strong>Date:</strong> ${seat.date || "N/A"}</p>
-        <p><strong>Time:</strong> ${seat.time || "N/A"}</p>
+        <p><strong>Sæde:</strong> ${seat.seatNameID || "N/A"}</p>
+        <p><strong>Visning:</strong> ${seat.showTimeID || "N/A"}</p>
+        <p><strong>Dato:</strong> ${seat.date || "N/A"}</p>
+        <p><strong>Klokken:</strong> ${seat.time || "N/A"}</p>
         <button id="book-seat-btn">Book Seat</button>
         <button id="cancel-seat-btn">Cancel Booking</button>
     `;
