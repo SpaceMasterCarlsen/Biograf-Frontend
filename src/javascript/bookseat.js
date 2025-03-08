@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("movie-name").textContent = seat.movieName || "N/A";
         document.getElementById("theater-name").textContent = seat.theaterName || "N/A";
         document.getElementById("seat-name").textContent = seat.seatNameID || "N/A";
-        document.getElementById("showtime").textContent = seat.showtime || "N/A";
+        document.getElementById("showtime").textContent = showTimeID || "N/A";
         document.getElementById("date").textContent = seat.date || "N/A";
         document.getElementById("time").textContent = seat.time || "N/A";
 
