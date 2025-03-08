@@ -76,4 +76,4 @@ async function cancelBooking(seatID) {
     }
 }
 
-export { getSeats, bookSeat, cancelBooking };
+export { getSeats, bookSeat, cancelBooking, getShowTimeIdDetails };

@@ -1,4 +1,27 @@
-import { getSeats, bookSeat, cancelBooking } from "./bookseatAPI.js";
+import { getSeats, bookSeat, cancelBooking, getShowTimeIdDetails } from "./bookseatAPI.js";
+
+let theater;
+let date;
+let time;
+let movie;
+
+async function getSeatReservationData(showTimeID) {
+    const results = await getShowTimeIdDetails(showTimeID);
+
+    if (results) { //fetch the variables from the backend entity class
+        theater = results.theater.name || "N/A";
+        date = results.date || "N/A";
+        time = results.startTime || "N/A";
+        movie = results.movie.name || "N/A"
+
+        console.log("Updated Details:");
+        console.log("Theater:", theater);
+        console.log("Date:", date);
+        console.log("Time:", time);
+    } else {
+        console.log("Failed to update showtime details.");
+    }
+}
 
 // Function to get showTimeID from the URL
 function getShowTimeID() {
@@ -15,6 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (showTimeID) {
         await initSeats();
+        await getSeatReservationData(showTimeID);
     } else {
         console.error("showTimeID is missing in the URL parameters.");
     }
@@ -66,12 +90,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Display seat details
     function displaySeatDetails(seat) {
         seatDetails.innerHTML = `
-        <p><strong>Film:</strong> ${seat.movieName || "N/A"}</p>
-        <p><strong>Theater:</strong> ${seat.theaterName || "N/A"}</p>
+        <p><strong>Film:</strong> ${movie}</p>
+        <p><strong>Theater:</strong> ${theater}</p>
         <p><strong>Sæde:</strong> ${seat.seatNameID || "N/A"}</p>
         <p><strong>Visning:</strong> ${seat.showTimeID || "N/A"}</p>
-        <p><strong>Dato:</strong> ${seat.date || "N/A"}</p>
-        <p><strong>Klokken:</strong> ${seat.time || "N/A"}</p>
+        <p><strong>Dato:</strong> ${date}</p>
+        <p><strong>Klokken:</strong> ${time}</p>
         <button id="book-seat-btn">Book Sæde</button>
         <button id="cancel-seat-btn">Annuller Booking</button>
     `;
