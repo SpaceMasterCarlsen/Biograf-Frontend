@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', headerGetter, footerGetter)
+document.addEventListener('DOMContentLoaded', function() {
+    headerGetter();
+    footerGetter();
+});
 
 
 function headerGetter () {
