@@ -12,6 +12,8 @@ document.getElementById("selected-date").textContent = selectedDate
 async function fetchShowtimes(date) {
     try {
         const response = await fetch(`http://localhost:8080/showtime/date/${date}`)
+        //this is needed for example 404 or 500 responses as the endpoint in the backend only ResponseEntity.ok
+        //which doesn't always return a JSON if something goes wrong
         if (!response.ok){
             throw new Error("Failed to fetch showtime")
         }
@@ -40,6 +42,13 @@ function displayShowtimes(showtimes) {
             <p>Start time: ${showtime.startTime}</p>
             <hr>
             `;
+        //the whole div is clickable as of now - we can change this if not suitable
+        showtimeElement.addEventListener("click", () => {
+            window.location.href = `bookseat.html?showTimeID=${showtime.showTimeID}`
+        });
+
+
+
         showtimeContainer.appendChild(showtimeElement)
     });
 
