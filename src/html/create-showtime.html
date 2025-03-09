@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create ShowTime</title>
+</head>
+<body>
+<h2>Create a ShowTime</h2>
+
+<form id="showtimeForm">
+  <label for="movieID">Movie ID:</label>
+  <select id="movieID" required>
+    <option value="">Loading...</option>
+  </select><br><br>
+
+  <label for="theaterID">Theater ID:</label>
+  <select id="theaterID" required>
+    <option value="">Loading...</option>
+  </select><br><br>
+
+  <label for="date">Date:</label>
+  <input type="date" id="date" required><br><br>
+
+  <label for="startTime">Start Time:</label>
+  <input type="time" id="startTime" required><br><br>
+
+  <button type="submit">Create Showtime</button>
+</form>
+
+<h3>Response:</h3>
+<pre id="response"></pre>
+
+<h3>Generated Seats</h3>
+<ul id="seatList"></ul>
+
+<script src="/javascript/create-showtime.js"></script>
+
+</body>
