@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p><strong>Film:</strong> ${movie}</p>
         <p><strong>Theater:</strong> ${theater}</p>
         <p><strong>Sæde:</strong> ${seat.seatNameID || "N/A"}</p>
-        <p><strong>Visning:</strong> ${seat.showTimeID || "N/A"}</p>
+        <p><strong>Visning:</strong> ${showTimeID || "N/A"}</p>
         <p><strong>Dato:</strong> ${date}</p>
         <p><strong>Klokken:</strong> ${time}</p>
         <button id="book-seat-btn">Book Sæde</button>
@@ -106,9 +106,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             const success = await cancelBooking(seat.seatID);
             if (success) {
                 updateSeatUI(seat.seatID, false);
-                alert("Booking canceled successfully!");
+                alert("Bookingingen er hermed annulleret!");
             } else {
-                alert("Failed to cancel booking.");
+                alert("Bookingen kunne ikke annulleres.");
             }
         };
 
@@ -116,9 +116,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             const success = await bookSeat(seat.seatID);
             if (success) {
                 updateSeatUI(seat.seatID, true);
-                alert("Seat booked successfully!");
+                alert("Sædet er hermed booked!");
             } else {
-                alert("Failed to book seat.");
+                alert("Sædet kunne ikke bookes.");
             }
         };
     }
