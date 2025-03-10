@@ -43,6 +43,17 @@ function renderCalendar(month, year) {
             day.classList.add('current-date');
         }
 
+        //code to click a date
+        day.addEventListener("click", () => {
+            //this is needed cause our backend recieves dates in the format  (YYYY-MM-DD)
+            //month + 1 is due to javascripts months are ZERO indexed (january = 0)
+            // "i" is day (1-31)
+            //.padstart is the format - for example we need a month and day to be "03" and not "3"
+            const selectedDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+            window.location.href = `showtimes.html?date=${selectedDate}`;
+        })
+
+
         calendarDates.appendChild(day);
     }
 }

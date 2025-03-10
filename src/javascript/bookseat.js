@@ -4,6 +4,14 @@ let theater;
 let date;
 let time;
 let movie;
+let showTimeID;
+
+//to get showtimeID from queryParams
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search)
+    return urlParams.get(param)
+}
+
 
 async function getSeatReservationData(showTimeID) {
     const results = await getShowTimeIdDetails(showTimeID);
@@ -12,9 +20,10 @@ async function getSeatReservationData(showTimeID) {
         theater = results.theater.name || "N/A";
         date = results.date || "N/A";
         time = results.startTime || "N/A";
-        movie = results.movie.name || "N/A"
+        movie = results.movie.title || "N/A"
 
         console.log("Updated Details:");
+        console.log("Movie:m ", movie)
         console.log("Theater:", theater);
         console.log("Date:", date);
         console.log("Time:", time);
@@ -23,16 +32,12 @@ async function getSeatReservationData(showTimeID) {
     }
 }
 
-// Function to get showTimeID from the URL
-function getShowTimeID() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('showTimeID');
-}
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     const seatsContainer = document.querySelector(".seats-container");
     const selectedSeats = new Set();
-    const showTimeID = 2; // Hardcoded for now, remove later
+    showTimeID = getQueryParam("showTimeID"); // Hardcoded for now, remove later
 
     const seatDetails = document.getElementById("seat-details");
 
