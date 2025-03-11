@@ -1,0 +1,48 @@
+/* This is the background of the whole site */
+body {
+    background: whitesmoke;
+}
+
+/* we are aligning our main part in the middel */
+main {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+}
+
+/* this is our wrapper function for input.*/
+.wrapper {
+    height: 600px;
+    width: 800px;
+    border-radius: 10px;
+    background: white;
+    margin-top: 76px;
+    margin-bottom: 75px;
+}
+
+.wrapper2{
+    text-align: justify;
+}
+
+/* Design for our submit bottom*/
+.btn{
+    background: black;
+    color: white;
+    height: 40px;
+    width: 657px;
+    border-radius: 20px;
+    font-size: 17px;
+    border: 0;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background: lightgray;
+    color: black;
+    border: 1.4px solid black;
+    transition: 0.5s;
+}
