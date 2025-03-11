@@ -38,9 +38,9 @@ async function loadcontent(){
 }
 
 function navigateToIndex() {
-    window.location.href = "../html/index.html";
+    window.location.href = "../../html/index.html";
 }
 
 function navigateToProgram() {
-    window.location.href = "../html/calendar.html";
+    window.location.href = "../../html/calendar.html";
 }
