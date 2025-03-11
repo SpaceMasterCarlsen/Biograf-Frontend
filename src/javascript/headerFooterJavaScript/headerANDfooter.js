@@ -1,28 +1,24 @@
-document.addEventListener('DOMContentLoaded', function() {
-    headerGetter();
-    footerGetter();
-});
 
 
-function headerGetter () {
-    // Load the header
-    fetch('headerFooterTemplates/layout-header.html')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('header-container').innerHTML = html;
-        })
-        .catch(error => {
-            console.warn('Error loading the header:', error);
-        });
+document.addEventListener('DOMContentLoaded',  script);
+
+function script(){
+    loadComponent("headerFooterTemplates/layout-header.html", "header-container")
+    loadComponent("headerFooterTemplates/layout-footer.html", "footer-container")
 }
 
-function footerGetter(){
-    fetch('headerFooterTemplates/layout-footer.html')
+
+
+
+function loadComponent(url, containerID){
+    fetch(url)
         .then(response => response.text())
-        .then(html => {
-            document.getElementById('footer-container').innerHTML = html;
-        })
-        .catch(error => {
-            console.warn('Error loading the footer:', error);
-        });
+        .then(data =>{document.getElementById(containerID).innerHTML = data})
+        .catch(error => console.error("error in loading" + url))
+    //this is working. getting the right header and footer in.
+    //console.log("did you enter here ?")
 }
+
+
+
+
