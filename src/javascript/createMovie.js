@@ -44,5 +44,5 @@ function sendMovieToBackend(movie) {
     })
         .then(response => response.json()) // Convert response to JSON
         .then(data => displayMessage(`ShowTime Created: ${data.title} (${data.duration} min) - ${data.genre}`, "success"))
-        .catch(() => displayMessage("Failed to create ShowTime.", "error"));
+        .catch(() => displayMessage("Failed to create Theater.", "error"));
 }
