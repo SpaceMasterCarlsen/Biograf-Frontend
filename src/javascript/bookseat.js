@@ -154,17 +154,34 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         };
 
+        // Booking button event listener
         document.getElementById("book-seat-btn").onclick = async () => {
             const success = await bookSeat(seat.seatID);
             if (success) {
                 updateSeatUI(seat.seatID, true);
-                alert("Sædet er hermed booked!");
+                showBookingConfirmation(seat); // Call function to show modal
             } else {
                 alert("Sædet kunne ikke bookes.");
             }
         };
     }
 
+    function showBookingConfirmation(seat) {
+        const modal = document.getElementById("modal");
+        const modalBody = document.querySelector(".modal-body");
+
+        modalBody.innerHTML = `
+        <h3>✅ Du har booket!</h3>
+        <p><strong>Film:</strong> ${movie}</p>
+        <p><strong>Theater:</strong> ${theater}</p>
+        <p><strong>Sæde:</strong> ${seat.seatNameID || "N/A"}</p>
+        <p><strong>Visnings nummer:</strong> ${showTimeID || "N/A"}</p>
+        <p><strong>Dato:</strong> ${date}</p>
+        <p><strong>Klokken:</strong> ${time}</p>
+    `;
+
+        openModal(modal);
+    }
 
     // Update seat UI dynamically (no reload)
     function updateSeatUI(seatID, isBooked) {
