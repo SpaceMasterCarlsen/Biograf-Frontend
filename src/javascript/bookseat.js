@@ -6,6 +6,43 @@ let time;
 let movie;
 let showTimeID;
 
+const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-button]')
+const overlay = document.getElementById('overlay')
+
+openModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget)
+        openModal(modal)
+    })
+})
+
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.modal')
+        closeModal(modal)
+    })
+})
+
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.modal.active')
+    modals.forEach(modal => {
+        closeModal(modal)
+    })
+})
+
+function openModal(modal) {
+    if (modal == null) return
+    modal.classList.add('active')
+    overlay.classList.add('active')
+}
+
+function closeModal(modal) {
+    if (modal == null) return
+    modal.classList.remove('active')
+    overlay.classList.remove('active')
+}
+
 //to get showtimeID from queryParams
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search)
@@ -117,17 +154,34 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         };
 
+        // Booking button event listener
         document.getElementById("book-seat-btn").onclick = async () => {
             const success = await bookSeat(seat.seatID);
             if (success) {
                 updateSeatUI(seat.seatID, true);
-                alert("Sædet er hermed booked!");
+                showBookingConfirmation(seat); // Call function to show modal
             } else {
                 alert("Sædet kunne ikke bookes.");
             }
         };
     }
 
+    function showBookingConfirmation(seat) {
+        const modal = document.getElementById("modal");
+        const modalBody = document.querySelector(".modal-body");
+
+        modalBody.innerHTML = `
+        <h3>✅ Du har booket!</h3>
+        <p><strong>Film:</strong> ${movie}</p>
+        <p><strong>Theater:</strong> ${theater}</p>
+        <p><strong>Sæde:</strong> ${seat.seatNameID || "N/A"}</p>
+        <p><strong>Visnings nummer:</strong> ${showTimeID || "N/A"}</p>
+        <p><strong>Dato:</strong> ${date}</p>
+        <p><strong>Klokken:</strong> ${time}</p>
+    `;
+
+        openModal(modal);
+    }
 
     // Update seat UI dynamically (no reload)
     function updateSeatUI(seatID, isBooked) {

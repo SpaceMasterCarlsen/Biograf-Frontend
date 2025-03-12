@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../css/bookseat.css">
     <script defer src="../javascript/headerFooterJavaScript/headerANDfooter.js"></script>
 </head>
-
+<body>
 <div id="header-container"></div> <!-- Placeholder for header -->
 
 
@@ -16,20 +16,34 @@
 <div class="seats-wrapper">
     <div class="seats-container"></div> <!-- Seat grid -->
 
-    <div id="seat-details" style="display: none;"> <!-- Seat details -->
-        <h3>Booking Information</h3>
-        <p><strong>Film:</strong> <span id="movie-name"></span></p>
-        <p><strong>Theater:</strong> <span id="theater-name"></span></p>
-        <p><strong>Sæde:</strong> <span id="seat-name"></span></p>
-        <p><strong>Visning:</strong> <span id="showtime"></span></p>
-        <p><strong>Dato:</strong> <span id="date"></span></p>
-        <p><strong>Klokken:</strong> <span id="time"></span></p>
-        <button id="book-seat-btn">Book sædet</button>
-        <button id="cancel-seat-btn">Annuller booking</button>
+<div class="seats-container"></div>
+
+<!-- The div where the seat details will be displayed -->
+<div id="seat-details" style="display: none;">
+    <h3>Booking Information</h3>
+    <p><strong>Film:</strong> <span id="movie-name"></span></p>
+    <p><strong>Theater:</strong> <span id="theater-name"></span></p>
+    <p><strong>Sæde:</strong> <span id="seat-name"></span></p>
+    <p><strong>Visnings nummer:</strong> <span id="showtime"></span></p>
+    <p><strong>Dato:</strong> <span id="date"></span></p>
+    <p><strong>Klokken:</strong> <span id="time"></span></p>
+
+    <!-- Add Book and Cancel buttons -->
+    <button id="book-seat-btn">Book sædet</button>
+    <button id="cancel-seat-btn">Annuller booking</button>
     </div>
 </div>
 
-
+<div class="modal" id="modal">
+    <div class="modal-header">
+        <div class="title">Booking Bekræftelse</div>
+        <button data-close-button class="close-button">&times;</button>
+    </div>
+    <div class="modal-body">
+        Filmen er hermed blevet booket
+    </div>
+</div>
+<div id="overlay"></div>
 
 
 </body>
