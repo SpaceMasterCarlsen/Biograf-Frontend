@@ -73,7 +73,7 @@ hr {
 }
 /*Calendar related css*/
 .calendar {
-    width: 350px;
+    width: 500px;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     color:  goldenrod;

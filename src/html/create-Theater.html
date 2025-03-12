@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/create-edit.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script defer src="../javascript/headerFooterJavaScript/headerANDfooter.js"></script>
+</head>
+
+<div id="header-container"></div> <!-- Placeholder for header -->
+
+<body>
+
+<main>
+    <!-- in JS get element by ID will take everything inside below "id Form"-->
+    <div class="wrapper">
+        <h2>Create a Theater</h2>
+        <form id="theaterForm">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            <br>
+
+            <label for="rows">Number of rows:</label>
+            <input type="number" id="rows" required>
+            <br>
+
+            <!-- this is the event tricker for send moving to backend -->
+            <button type="submit" class="btn">Create Theater</button>
+        </form>
+    </div>
+
+    <script src="../javascript/createTheater.js"></script>
+
+</main>
+
+</body>
+
+<div id="footer-container"></div> <!-- Placeholder for footer -->
+</html>

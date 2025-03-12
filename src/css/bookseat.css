@@ -107,6 +107,60 @@ hr {
 .selected {
     background-color: blue;
 }
+/* =================Ticket Styling ================= */
+
+.seats-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack seats and seat details */
+    align-items: center; /* Center horizontally */
+    justify-content: flex-start; /* Align content to the top */
+    min-height: 70vh; /* Ensures it does not stretch into the footer */
+    gap: 20px; /* Space between seat grid and seat details */
+    margin-bottom: 20px; /* Prevent overlap with footer */
+}
+
+/* Make sure seats-container remains a grid */
+.seats-container {
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    gap: 10px;
+}
+
+/* Seat details should take up full width but not overlap */
+#seat-details {
+    display: none; /* Initially hidden */
+    width: 100%; /* Ensure it aligns with seats */
+    max-width: 500px; /* Prevent it from being too wide */
+    padding: 15px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+
+
+#seat-details p {
+    margin: 5px 0;
+}
+
+#seat-details button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+#seat-details button:last-child {
+    background-color: #dc3545;
+}
+
 
 
 /* ================= Modal Styling ================= */

@@ -192,3 +192,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 });
+
+function positionSeatDetails(seatElement) {
+    const details = document.getElementById("seat-details");
+
+    // Ensure details are visible
+    details.style.display = "block";
+
+    // Get seat position
+    const seatRect = seatElement.getBoundingClientRect();
+
+    // Position the ticket details near the seat
+    details.style.position = "absolute";
+    details.style.left = `${seatRect.right + 10}px`; // 10px to the right of the seat
+    details.style.top = `${seatRect.top}px`; // Align with the top of the seat
+}
+
+// Attach event listeners to all seats
+document.querySelectorAll(".seat").forEach(seat => {
+    seat.addEventListener("click", function () {
+        positionSeatDetails(this);
+    });
+});
