@@ -1,0 +1,38 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    padding: 50px;
+}
+
+h1 {
+    color: #333;
+}
+
+button {
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    color: white;
+}
+
+#movie-overview {
+    background-color: #007bff;
+}
+
+#theater-overview {
+    background-color: #28a745;
+}
+
+#showtimes-overview {
+    background-color: #dc3545;
+}
+
+button:hover {
+    opacity: 0.8;
+}
