@@ -273,6 +273,8 @@ document.querySelectorAll(".seat").forEach(seat => {
     });
 });
 
+// ******************** - helper functions - *******************
+
 
 //helper function for showing array of seats (a comma-seperated string of selected seat names
 //this is needed for showing the seats in the booking
