@@ -20,15 +20,15 @@ button {
     color: white;
 }
 
-#movieBtn {
+#create-movieBtn {
     background-color: #007bff;
 }
 
-#theaterBtn {
+#movie-overviewBtn {
     background-color: #28a745;
 }
 
-#showtimesBtn {
+#admin-return-button {
     background-color: #dc3545;
 }
 

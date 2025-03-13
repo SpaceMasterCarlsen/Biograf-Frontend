@@ -1,3 +1,4 @@
+/* styles.css */
 
 body {
     font-family: Arial, sans-serif;
@@ -20,15 +21,15 @@ button {
     color: white;
 }
 
-#movieBtn {
+#create-theaterBtn {
     background-color: #007bff;
 }
 
-#theaterBtn {
+#theater-overviewBtn {
     background-color: #28a745;
 }
 
-#showtimesBtn {
+#admin-return-button {
     background-color: #dc3545;
 }
 
