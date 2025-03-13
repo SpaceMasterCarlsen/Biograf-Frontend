@@ -14,6 +14,8 @@
     height: 10%; /* Adjust size */
     width: 10%;
     border-radius: 15px;
+    border: 2px solid goldenrod;
+
 
 }
 
@@ -72,7 +74,6 @@ hr {
     margin: 0;
     background-image: url('../assets/cinema Theater Background AI upscaled.jpg');
     background-size: cover;
-
 
 }
 
