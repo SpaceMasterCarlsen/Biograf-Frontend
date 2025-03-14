@@ -1,14 +1,31 @@
-import { getSeats, bookSeat, cancelBooking, getShowTimeIdDetails } from "./bookseatAPI.js";
+import {bookSeat, cancelBooking, getSeats, getShowTimeIdDetails} from "./bookseatAPI.js";
 
+// ******************* - global variables - *******************
+
+const selectedSeats = new Set();
 let theater;
 let date;
 let time;
 let movie;
 let showTimeID;
 
+// ******************** - DOM elements - *******************
+
+//modals and overlay
+const modal = document.getElementById("modal");
+const modalBody = document.querySelector(".modal-body");
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
+
+//seat selection elements
+const seatsContainer = document.querySelector(".seats-container");
+const seatDetails = document.getElementById("seat-details");
+
+
+
+// ******************** - eventlisteners(modal) - *******************
+
 
 openModalButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -31,6 +48,8 @@ overlay.addEventListener('click', () => {
     })
 })
 
+// ******************** - modal functions - *******************
+
 function openModal(modal) {
     if (modal == null) return
     modal.classList.add('active')
@@ -43,17 +62,15 @@ function closeModal(modal) {
     overlay.classList.remove('active')
 }
 
-//to get showtimeID from queryParams
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search)
-    return urlParams.get(param)
-}
+
+// ******************** - utility to update global variables and fetch from backend - *******************
 
 
 async function getSeatReservationData(showTimeID) {
     const results = await getShowTimeIdDetails(showTimeID);
 
-    if (results) { //fetch the variables from the backend entity class
+    //update the variables
+    if (results) {
         theater = results.theater.name || "N/A";
         date = results.date || "N/A";
         time = results.startTime || "N/A";
@@ -69,31 +86,32 @@ async function getSeatReservationData(showTimeID) {
     }
 }
 
-
+// ******************** - page loading logic - *******************
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const seatsContainer = document.querySelector(".seats-container");
-    const selectedSeats = new Set();
-    showTimeID = getQueryParam("showTimeID"); // Hardcoded for now, remove later
-
-    const seatDetails = document.getElementById("seat-details");
+    //fetches the showtimeID (from the URL) from the helper function at the bottom
+    showTimeID = getQueryParam("showTimeID");
 
     if (showTimeID) {
-        await initSeats();
         await getSeatReservationData(showTimeID);
+        await initSeats();
     } else {
         console.error("showTimeID is missing in the URL parameters.");
     }
+});
 
-    // Initialize seat layout
-    async function initSeats() {
+// ******************** - seat rendering and selection - *******************
+
+
+    // initialize seats by calling get endpoint in backend
+async function initSeats() {
         const seats = await getSeats(showTimeID);
         renderSeats(seats);
     }
 
-    // Render seats in the grid
-    function renderSeats(seats) {
-        seatsContainer.innerHTML = ""; // Clear existing seats
+    // rendering the seats in a grid
+function renderSeats(seats) {
+        seatsContainer.innerHTML = ""; // to clear existing seats
 
         seats.forEach(seat => {
             const seatElement = document.createElement("div");
@@ -108,109 +126,171 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
 
             if (selectedSeats.has(seat.seatID)) {
-                seatElement.classList.add("selected"); // Keep selected seats highlighted
+                seatElement.classList.add("selected"); // this keeps the selected seats highlighted
             }
 
-            seatElement.dataset.seatId = seat.seatID; // Store seat ID for updates
-            seatsContainer.appendChild(seatElement);
+            seatElement.dataset.seatId = seat.seatID; // store seat ID for updates
+            seatsContainer.appendChild(seatElement); //and append the seat
         });
     }
 
-    // Handle seat selection and display details
-    function toggleSelection(seatElement, seat) {
-        if (selectedSeats.has(seat.seatID)) {
-            selectedSeats.delete(seat.seatID);
-            seatElement.classList.remove("selected");
-        } else {
-            selectedSeats.add(seat.seatID);
-            seatElement.classList.add("selected");
-        }
+    // handle seat selection, display details and update the ui
+function toggleSelection(seatElement, seat) {
 
-        displaySeatDetails(seat);
+    const seatID = seat.seatID.toString()
+
+    if (selectedSeats.has(seatID)) {
+        selectedSeats.delete(seatID);
+        seatElement.classList.remove("selected");
+    } else {
+        selectedSeats.add(seatID);
+        seatElement.classList.add("selected");
     }
 
-    // Display seat details
-    function displaySeatDetails(seat) {
-        seatDetails.innerHTML = `
-        <p><strong>Film:</strong> ${movie}</p>
-        <p><strong>Theater:</strong> ${theater}</p>
-        <p><strong>Sæde:</strong> ${seat.seatNameID || "N/A"}</p>
-        <p><strong>Visning:</strong> ${showTimeID || "N/A"}</p>
-        <p><strong>Dato:</strong> ${date}</p>
-        <p><strong>Klokken:</strong> ${time}</p>
-        <button id="book-seat-btn">Book Sæde</button>
-        <button id="cancel-seat-btn">Annuller Booking</button>
-    `;
-
-        seatDetails.style.display = "block";
-
-        document.getElementById("cancel-seat-btn").onclick = async () => {
-            const success = await cancelBooking(seat.seatID);
-            if (success) {
-                updateSeatUI(seat.seatID, false);
-                alert("Bookingingen er hermed annulleret!");
-            } else {
-                alert("Bookingen kunne ikke annulleres.");
-            }
-        };
-
-        // Booking button event listener
-        document.getElementById("book-seat-btn").onclick = async () => {
-            const success = await bookSeat(seat.seatID);
-            if (success) {
-                updateSeatUI(seat.seatID, true);
-                showBookingConfirmation(seat); // Call function to show modal
-            } else {
-                alert("Sædet kunne ikke bookes.");
-            }
-        };
-    }
-
-    function showBookingConfirmation(seat) {
-        const modal = document.getElementById("modal");
-        const modalBody = document.querySelector(".modal-body");
-
-        modalBody.innerHTML = `
-        <h3>✅ Du har booket!</h3>
-        <p><strong>Film:</strong> ${movie}</p>
-        <p><strong>Theater:</strong> ${theater}</p>
-        <p><strong>Sæde:</strong> ${seat.seatNameID || "N/A"}</p>
-        <p><strong>Visnings nummer:</strong> ${showTimeID || "N/A"}</p>
-        <p><strong>Dato:</strong> ${date}</p>
-        <p><strong>Klokken:</strong> ${time}</p>
-    `;
-
-        openModal(modal);
-    }
-
-    // Update seat UI dynamically (no reload)
-    function updateSeatUI(seatID, isBooked) {
-        const seatElement = document.querySelector(`[data-seat-id='${seatID}']`);
-        if (seatElement) {
-            seatElement.classList.toggle("booked", isBooked);
-            seatElement.classList.toggle("available", !isBooked);
-        }
-    }
-});
-
-function positionSeatDetails(seatElement) {
-    const details = document.getElementById("seat-details");
-
-    // Ensure details are visible
-    details.style.display = "block";
-
-    // Get seat position
-    const seatRect = seatElement.getBoundingClientRect();
-
-    // Position the ticket details near the seat
-    details.style.position = "absolute";
-    details.style.left = `${seatRect.right + 10}px`; // 10px to the right of the seat
-    details.style.top = `${seatRect.top}px`; // Align with the top of the seat
+    displaySeatDetails();
 }
 
-// Attach event listeners to all seats
+// to display seat details
+function displaySeatDetails() {
+    if (selectedSeats.size === 0) {
+        seatDetails.innerHTML = "<p>Vælg et sæde for at se detaljer</p>"
+        return
+    }
+
+    const seatnames = loopSeatsHelper(selectedSeats)
+
+    seatDetails.innerHTML = `
+       <p><strong>Film:</strong> ${movie}</p>
+       <p><strong>Theater:</strong> ${theater}</p>
+       <p><strong>Sæde:</strong> ${seatnames || "N/A"}</p>
+       <p><strong>Visning:</strong> ${showTimeID || "N/A"}</p>
+       <p><strong>Dato:</strong> ${date}</p>
+       <p><strong>Klokken:</strong> ${time}</p>
+       <button id="book-seat-btn">Book Sæde</button>
+       <button id="cancel-seat-btn">Annuller Booking</button>
+   `;
+
+    seatDetails.style.display = "block";
+
+    document.getElementById("cancel-seat-btn").onclick = handleCancelBooking
+
+        // booking button event listener
+    document.getElementById("book-seat-btn").onclick = handleBooking
+
+    }
+
+// ******************** - booking logic - *******************
+
+// for booking
+async function handleBooking() {
+    if (selectedSeats.size === 0) {
+        alert("Vælg mindst et sæde!")
+        return
+    }
+
+    //convert to Array for sending the JSON to the backend (sends an array of IDs)
+    const seatIDs = Array.from(selectedSeats)
+    const success = await bookSeat(seatIDs)
+        if(success) {
+            seatIDs.forEach(seatID => updateSeatUI(seatID, true));
+            showBookingConfirmation()
+        } else {
+            alert("Nogle sæder kunne ikke bookes")
+        }
+}
+
+//for canceling a booking - as of now, the endpoint doesn't take a list so this is only proof of concept
+async function handleCancelBooking() {
+    if(selectedSeats.size === 0) {
+        alert("Vælg mindst et sæde!")
+        return
+    }
+
+    const seatIDs = Array.from(selectedSeats)
+    const succces = await cancelBooking(selectedSeats)
+        if(succces) {
+            seatIDs.forEach(seatID => updateSeatUI(seatID, true))
+            alert("Booking er hermed annuleret")
+        } else {
+            alert("Bookingen kunne ikke annuleres")
+        }
+
+}
+
+
+// ******************** - show booking logic - *******************
+
+function showBookingConfirmation() {
+    const seatnames = loopSeatsHelper(selectedSeats)
+
+    modalBody.innerHTML = `
+       <h3>✅ Du har booket!</h3>
+       <p><strong>Film:</strong> ${movie}</p>
+       <p><strong>Theater:</strong> ${theater}</p>
+       <p><strong>Sæde:</strong> ${seatnames || "N/A"}</p>
+       <p><strong>Visnings nummer:</strong> ${showTimeID || "N/A"}</p>
+       <p><strong>Dato:</strong> ${date}</p>
+       <p><strong>Klokken:</strong> ${time}</p>
+   `;
+
+    openModal(modal);
+    selectedSeats.clear()
+    displaySeatDetails()
+}
+
+// update seat UI dynamically (no reload) after a booking or cancelation
+function updateSeatUI(seatID, isBooked) {
+    const seatElement = document.querySelector(`[data-seat-id='${seatID}']`);
+    if (seatElement) {
+        seatElement.classList.toggle("booked", isBooked);
+        seatElement.classList.toggle("available", !isBooked);
+        if (isBooked) {
+            seatElement.classList.remove("selected"); //this removes selection highlighting
+        }
+    }
+}
+
+
+function positionSeatDetails(seatElement) {
+    const details = seatDetails
+
+    // ensures that details are visible
+    details.style.display = "block";
+
+    // this gets seat position (relative to the viewport)
+    const seatRect = seatElement.getBoundingClientRect();
+
+    // positions the ticket details near the seat
+    details.style.position = "absolute";
+    details.style.left = `${seatRect.right + 10}px`; // 10px to the right of the seat
+    details.style.top = `${seatRect.top}px`; // and align with the top of the seat
+}
+
+// attaching eventlisteners to all seats
 document.querySelectorAll(".seat").forEach(seat => {
     seat.addEventListener("click", function () {
         positionSeatDetails(this);
     });
 });
+
+// ******************** - helper functions - *******************
+
+
+//helper function for showing array of seats (a comma-seperated string of selected seat names
+//this is needed for showing the seats in the booking
+function loopSeatsHelper(selectedSeats) {
+    return Array.from(selectedSeats)
+        .map(seatID => {
+            const seatElement = document.querySelector(`[data-seat-id='${seatID}']`);
+            return seatElement ? seatElement.textContent : "Ukendt sæde";
+        })
+        .join(", ");
+}
+
+//to get showtimeID from queryParams
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search)
+    return urlParams.get(param)
+}
+
+

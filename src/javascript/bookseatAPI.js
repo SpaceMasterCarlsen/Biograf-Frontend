@@ -32,13 +32,14 @@ async function getSeats(showTimeID) {
 
 
 
-async function bookSeat(seatID) {
+async function bookSeat(seatIDs) {
     try {
-        const response = await fetch(`${BASE_URL}/bookseat/${seatID}`, {
+        const response = await fetch(`${BASE_URL}/bookseat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
+            body: JSON.stringify(seatIDs)
         });
 
         if (response.ok) {
