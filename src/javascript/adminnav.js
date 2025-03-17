@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "admin-return-button": "admin.html",
         "create-showtimeBtn": "create-showtime.html",
         "create-theaterBtn": "create-theater.html",
-        "theater-overviewBtn": "view-theaters.html", // Fixed typo
+        "theater-overviewBtn": "view-theathers.html",
         "create-movieBtn": "create-movie.html",
         "movie-overviewBtn": "view-movies.html"
     };
